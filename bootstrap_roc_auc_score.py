@@ -1,7 +1,10 @@
 from typing import Tuple
 
 import numpy as np
+import time
 from sklearn.base import ClassifierMixin
+from sklearn.linear_model import LogisticRegression as lr
+from sklearn.datasets import make_classification
 
 def _roc_auc_score(y_true, y_score):
     """
@@ -98,3 +101,14 @@ def roc_auc_ci(
         left, right = right, left
     
     return left, right
+
+## test
+df = make_classification()
+X, y = df[0], df[1]
+
+logit = lr()
+logit.fit(X, y)
+
+start_time = time.time()
+print(roc_auc_ci(logit, X, y))
+time.time() - start_time
